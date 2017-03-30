@@ -1,0 +1,35 @@
+inherit cmake qt5
+
+NAME="cantata"
+VERSION=2.0.1
+RELEASE=1
+CATEGORY="Audio"
+SUMMARY="Qt MPD client"
+DESCRIPTION="Cantata is a graphical client for MPD based on the Qt toolkit."
+HOMEPAGE="https://github.com/CDrummond/cantata"
+SRC_URI="${HOMEPAGE}/archive/v${VERSION}/cantata-v${VERSION}.tar.gz"
+
+REQUIRES="fontawesome-fonts"
+
+CYGCMAKE_ARGS="
+	-DENABLE_TAGLIB=ON
+	-DENABLE_TAGLIB_EXTRAS=ON
+	-DENABLE_LIBVLC=OFF
+	-DENABLE_KDE=OFF
+	-DENABLE_QT5=ON
+	-DENABLE_UBUNTU=OFF
+	-DENABLE_FFMPEG=OFF
+	-DENABLE_MPG123=ON
+	-DENABLE_DEVICES_SUPPORT=ON
+	-DENABLE_TOUCH_SUPPORT=OFF
+	-DENABLE_CDPARANOIA=ON
+	-DENABLE_CDDB=ON
+	-DENABLE_MUSICBRAINZ=ON
+"
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	find ${D}/usr/share/${NAME}/fonts -delete
+}
